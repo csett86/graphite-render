@@ -98,67 +98,67 @@ class WhisperFinderTest(TestCase):
 
         try:
             store = app.config['GRAPHITE']['store']
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.foo')
             self.assertEqual(len(list(nodes)), 2)
             self.assertEqual(scandir_mocked.call_count, 0)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.foo.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 0)
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.*.ba?.{baz,foo}')
             self.assertEqual(len(list(nodes)), 2)
             self.assertEqual(scandir_mocked.call_count, 5)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{foo,bar}.{baz,bar}.{baz,foo}')
             self.assertEqual(len(list(nodes)), 2)
             self.assertEqual(scandir_mocked.call_count, 5)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{foo}.bar.*')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 2)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.foo.{ba{r,z},baz}.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{foo,garbage}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{fo{o}}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.foo{}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{fo,ba}{o}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{fo,ba}{o,o}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('whisper_finder.{fo,ba}{o,z}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
         finally:
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
 
     @patch('graphite_render.finders.whisper.scandir', wraps=scandir_mock)
     def test_gzipped_whisper_finder(self, scandir_mocked):
@@ -179,18 +179,18 @@ class WhisperFinderTest(TestCase):
 
         try:
             store = app.config['GRAPHITE']['store']
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('gzwhisper_finder.foo')
             self.assertEqual(len(list(nodes)), 2)
             self.assertEqual(scandir_mocked.call_count, 0)
 
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
             nodes = store.find('gzwhisper_finder.foo{}.bar.baz')
             self.assertEqual(len(list(nodes)), 1)
             self.assertEqual(scandir_mocked.call_count, 1)
 
         finally:
-            scandir_mocked.call_count = 0
+            scandir_mocked.reset_mock()
 
     def test_globstar(self):
         store = app.config['GRAPHITE']['store']
