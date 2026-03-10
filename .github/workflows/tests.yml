@@ -158,6 +158,7 @@ jobs:
                 repo: context.repo.repo,
                 title: title,
                 body: body,
-                labels: ['automated-test-failure']
+                labels: ['automated-test-failure'],
+                assignees: ['Copilot']
               });
             }
