@@ -40,7 +40,7 @@ jobs:
             toxenv: cairo
 
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v6
@@ -57,7 +57,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -71,7 +71,7 @@ jobs:
           python -m build
 
       - name: Upload distributions
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: dist
           path: dist/
@@ -82,7 +82,7 @@ jobs:
       contents: write
       pull-requests: write
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
 
       - name: Set up Python
         uses: actions/setup-python@v6
@@ -100,7 +100,7 @@ jobs:
           make html
 
       - name: Upload documentation
-        uses: actions/upload-artifact@v6
+        uses: actions/upload-artifact@v7
         with:
           name: docs
           path: docs/_build/html/
@@ -118,7 +118,7 @@ jobs:
       issues: write
     steps:
       - name: Create issue on failure
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         with:
           script: |
             const title = 'Scheduled Tests Failed';
